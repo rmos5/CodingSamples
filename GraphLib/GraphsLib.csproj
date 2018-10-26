@@ -37,18 +37,18 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\CommonSource\rmsoftsignkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\SampleCodeSignKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="..\..\CommonSource\rmsoftsignkey.pfx">
-      <Link>rmsoftsignkey.pfx</Link>
+    <None Include="..\SampleCodeSignKey.snk">
+      <Link>SampleCodeSignKey.snk</Link>
     </None>
     <None Include="Graph-classes.cd" />
     <None Include="Graph-defs.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\CommonSource\2016\SharedAssemblyInfo.cs">
+    <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DefaultTraverser.cs" />

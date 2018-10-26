@@ -41,7 +41,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\CommonSource\rmsoftsignkey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\SampleCodeSignKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,7 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\..\CommonSource\2016\SharedAssemblyInfo.cs">
+    <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="TraverseNodeList.cs" />
@@ -102,8 +102,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\..\CommonSource\rmsoftsignkey.pfx">
-      <Link>rmsoftsignkey.pfx</Link>
+    <None Include="..\SampleCodeSignKey.snk">
+      <Link>SampleCodeSignKey.snk</Link>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
