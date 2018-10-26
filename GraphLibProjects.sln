@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphLibTestApp", "GraphLibTestApp\GraphLibTestApp.csproj", "{C11E7EA2-96D3-47E5-AA6E-911953C2F442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphsLib", "GraphLib\GraphsLib.csproj", "{FA75953A-7022-4462-8C8E-617922127199}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C11E7EA2-96D3-47E5-AA6E-911953C2F442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11E7EA2-96D3-47E5-AA6E-911953C2F442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11E7EA2-96D3-47E5-AA6E-911953C2F442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11E7EA2-96D3-47E5-AA6E-911953C2F442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA75953A-7022-4462-8C8E-617922127199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA75953A-7022-4462-8C8E-617922127199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA75953A-7022-4462-8C8E-617922127199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA75953A-7022-4462-8C8E-617922127199}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EBE849F-BE62-4F6F-A8D2-0B9E9B0B6CAD}
+	EndGlobalSection
+EndGlobal
