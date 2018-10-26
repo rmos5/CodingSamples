@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-TaskManagerDemo-3861B573-6D26-46CA-B2A2-9420755ADF46</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/725613ae-723e-4eed-be6c-f1505c4638c7/resourcegroups/F1-Free-Resources/providers/microsoft.insights/components/TaskManagerDemo</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/725613ae-723e-4eed-be6c-f1505c4638c7/resourcegroups/F1-Free-Resources/providers/microsoft.insights/components/TaskManagerDemo</ApplicationInsightsAnnotationResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Identity\Services\**" />
+    <Content Remove="Areas\Identity\Services\**" />
+    <EmbeddedResource Remove="Areas\Identity\Services\**" />
+    <None Remove="Areas\Identity\Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+    <PackageReference Include="SendGrid" Version="9.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManagerDemo.Data\TaskManagerDemo.Data.csproj" />
+    <ProjectReference Include="..\TaskManagerDemoService.Client\TaskManagerDemoService.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\Shared\DisplayTemplates\_TaskInfoList.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>

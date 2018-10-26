@@ -1,0 +1,52 @@
+﻿@page "{id}"
+@model TaskManagerDemo.Pages.TaskManager.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["parentTaskId"] = Model.TaskInfo.Id;
+    string backUrl = ViewData["backUrl"] as string ?? "./Index";
+}
+
+<h2>Details @Model.TaskInfo.Name</h2>
+
+<div>
+    <h4>TaskInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskInfo.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaskInfo.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskInfo.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaskInfo.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskInfo.ParentTask)
+        </dt>
+        <dd>
+            <a asp-page="Details" asp-route-id="@Model.TaskInfo.ParentTask?.Id" title="@Html.DisplayFor(model => model.TaskInfo.ParentTask.Description)">@Html.DisplayFor(modelItem => @Model.TaskInfo.ParentTask.Name)</a>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskInfo.Timestamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaskInfo.Timestamp)
+        </dd>
+    </dl>
+</div>
+<hr />
+<h4>Subtasks</h4>
+
+@Html.DisplayFor(m => m.TaskInfo.SubTasksSorted, "_TaskInfoList", new { showParent = false })
+<hr />
+<h4>Changes</h4>
+@Html.DisplayFor(m => m.TaskInfo.ModifyInfosSorted, "_ModifyInfoList")
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TaskInfo.Id">Edit</a> |
+    <a asp-page="@backUrl">Back</a>
+</div>

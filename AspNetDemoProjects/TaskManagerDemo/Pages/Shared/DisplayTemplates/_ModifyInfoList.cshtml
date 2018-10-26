@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TaskManagerDemo.Data.ModifyInfo>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Modified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modifier)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modifier)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

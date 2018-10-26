@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>c121a8c9-a3c3-4e3d-86ba-b3b76205b19e</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/725613ae-723e-4eed-be6c-f1505c4638c7/resourcegroups/F1-Free-Resources/providers/microsoft.insights/components/TaskManagerDemoService</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/725613ae-723e-4eed-be6c-f1505c4638c7/resourcegroups/F1-Free-Resources/providers/microsoft.insights/components/TaskManagerDemoService</ApplicationInsightsAnnotationResourceId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TaskManagerDemoService.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskManagerDemo.Data\TaskManagerDemo.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TaskManagerDemoService.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+</Project>

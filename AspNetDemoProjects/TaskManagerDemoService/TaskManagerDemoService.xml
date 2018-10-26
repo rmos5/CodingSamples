@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaskManagerDemoService</name>
+    </assembly>
+    <members>
+        <member name="T:TaskManagerDemoService.Controllers.TaskNamesController">
+            <summary>
+            Task names service controller.
+            </summary>
+        </member>
+        <member name="M:TaskManagerDemoService.Controllers.TaskNamesController.Get(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Retrieves task names.
+            </summary>
+            <param name="filter">Task name search term.</param>
+            <param name="contains">Task name contains, otherwise starts with <paramref name="filter"/></param>
+            <param name="pgn">Page number.</param>
+            <param name="pgsz">Page size.</param>
+            <returns>Names collection in alphabetical order.</returns>
+        </member>
+        <member name="M:TaskManagerDemoService.Controllers.TaskNamesController.Count">
+            <summary>
+            Counts names.
+            </summary>
+            <returns>Existing task names count.</returns>
+        </member>
+        <member name="M:TaskManagerDemoService.Controllers.TaskNamesController.Validate(System.String)">
+            <summary>
+            Validates name.
+            </summary>
+            <param name="name">Task name to be validated.</param>
+            <returns>True if name is valid.</returns>
+        </member>
+        <member name="M:TaskManagerDemoService.Controllers.TaskNamesController.Post(System.String)">
+            <summary>
+            Adds name.
+            </summary>
+            <param name="name">Stores task name.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Mvc.ActionResult"/></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<TaskManagerDemo.Data.TaskInfo>
+@{
+    bool showParent = (bool?)ViewData["showParent"] ?? true;
+}
+@*<form method="get">*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="Create" asp-route-parentTaskId='@ViewData["parentTaskId"]' asp-route-backUrl='@ViewData["backUrl"]' class="btn-link">+New</a>
+                @*<input type="submit" value="Search" class="btn btn-default" />*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+                @*<input type="search" name="Name" size="3" class="form-control" />*@
+            </th>
+            @if (showParent)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.ParentTask)
+                    @*<input type="search" name="Parent" size="3" class="form-control" />*@
+                </th>
+            }
+            <th>
+                Modified
+            </th>
+            <th>
+                Modifier
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-page="Create" asp-route-parentTaskId="@item.Id" title="Add subtask(#Subtasks)">+Subtask(@Html.DisplayFor(modelItem => item.SubTasks.Count))</a> |
+                    <a asp-page="Edit" asp-route-id="@item.Id" title="Edit task(#Changes)">Edit(@Html.DisplayFor(modelItem => item.ModifyInfos.Count))</a>
+                    @if (item.SubTasks.Count == 0)
+                    {
+                        @Html.Raw(" | ");
+                        <a asp-page="Delete" asp-route-id="@item.Id" title="Delete task">Delete</a>
+                    }
+                </td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@item.Id" title="@item.Description">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                @if (showParent)
+                {
+                    <td>
+                        <a asp-page="Details" asp-route-id="@item.ParentTask?.Id" title="@item.ParentTask?.Description">@Html.DisplayFor(modelItem => item.ParentTask.Name)</a>
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifyInfosSorted.First().Modified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifyInfosSorted.First().Modifier)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*</form>*@
