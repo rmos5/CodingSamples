@@ -20,7 +20,7 @@ namespace FoodOrders.Model
     }
 
     public abstract class CommandBase<T> : CommandBase
-       where T : ViewModelBase
+       where T : ContextBase
     {
         public T Context { get; }
 

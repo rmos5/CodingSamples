@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace FoodOrders.Model
 {
-    public class ItemsViewModel<TData> : ViewModelBase
+    public class ItemsContext<TData> : ContextBase
     {
         #region Commands
 
-        private class SelectItemCommandImpl : CommandBase<ItemsViewModel<TData>>
+        private class SelectItemCommandImpl : CommandBase<ItemsContext<TData>>
         {
-            public SelectItemCommandImpl(ItemsViewModel<TData> context)
+            public SelectItemCommandImpl(ItemsContext<TData> context)
                 : base(context)
             {
             }
@@ -68,12 +68,12 @@ namespace FoodOrders.Model
 
         public CommandBase SelectItemCommand { get; }
 
-        public ItemsViewModel()
+        public ItemsContext()
             : this(new List<TData>())
         {
         }
 
-        public ItemsViewModel(IEnumerable<TData> items)
+        public ItemsContext(IEnumerable<TData> items)
         {
             if (items == null)
                 throw new ArgumentNullException(nameof(items));
@@ -228,47 +228,64 @@ namespace FoodOrders.Model
         }
     }
 
-    public class ItemsViewModel<TData, TViewModel> : ItemsViewModel<TData>
-       where TData : DataModelObjectBase
-       where TViewModel : ViewModelBase<TData>, new()
+    public class ItemsContext<TData, TContext> : ItemsContext<TData>
+       where TData : DataModelObjectBase, new()
+       where TContext : ContextBase<TData>, new()
     {
-        private ItemsViewModel<TViewModel> ItemsViewModels { get; }
-
-        public ItemsViewModel()
+        public TContext SelectedContext
         {
-            ItemsViewModels = new ItemsViewModel<TViewModel>();
+            get  => ItemsContexts.SelectedItem;
+            private set
+            {
+                TContext oldContext = SelectedContext;
+                ItemsContexts.SelectedItem = value;
+                OnPropertyChanged(nameof(SelectedContext));
+                OnSelectedContextChanged(oldContext);
+            }
+        }
+
+        private ItemsContext<TContext> ItemsContexts { get; }
+
+        public ItemsContext()
+        {
+            ItemsContexts = new ItemsContext<TContext>();
         }
 
         public override void Cleanup()
         {
-            ItemsViewModels.Cleanup();
+            ItemsContexts.Cleanup();
             base.Cleanup();
         }
 
         protected override void OnSelectedItemChanged(TData oldItem)
         {
-            SelectViewModel(SelectedItem);
+            SelectContext(SelectedItem);
         }
 
         //todo: revise
-        protected virtual int ViewModelsCashSize { get; } = 100;
-        private void SelectViewModel(TData item)
+        protected virtual int ContextsCashSize { get; } = 100;
+        private void SelectContext(TData item)
         {
-            TViewModel viewModel = ItemsViewModels.Items.FirstOrDefault(o => item.Equals(o.Data));
-            if (viewModel == null)
-                viewModel = CreateViewModel(item);
+            TContext context = ItemsContexts.Items.FirstOrDefault(o => item.Equals(o.Data));
+            if (context == null)
+                context = CreateContext(item);
 
-            if (ItemsViewModels.Count > 0
-                && ItemsViewModels.Count > ViewModelsCashSize)
-                ItemsViewModels.RemoveLast();
+            if (ItemsContexts.Count > 0
+                && ItemsContexts.Count > ContextsCashSize)
+                ItemsContexts.RemoveLast();
 
-            ItemsViewModels.InsertData(viewModel);
-            ItemsViewModels.SelectedItem = viewModel;
+            ItemsContexts.InsertData(context);
+            ItemsContexts.SelectedItem = context;
+            SelectedContext = context;
         }
 
-        protected virtual TViewModel CreateViewModel(TData item)
+        protected virtual void OnSelectedContextChanged(TContext oldContext)
         {
-            return new TViewModel { Data = item };
+        }
+
+        protected virtual TContext CreateContext(TData item)
+        {
+            return new TContext { Data = item };
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace FoodOrders.Model
 {
-    public class EmployeeViewModel : ViewModelBase<Employee>
+    public class EmployeeContext : ContextBase<Employee>
     {
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace FoodOrders.Model
 {
-    public partial class MainViewModel
+    public partial class MainContext
     {
-        class GenerateDataCommandImpl : CommandBase<MainViewModel>
+        class GenerateDataCommandImpl : CommandBase<MainContext>
         {
-            public GenerateDataCommandImpl(MainViewModel context) : base(context)
+            public GenerateDataCommandImpl(MainContext context) : base(context)
             {
             }
 

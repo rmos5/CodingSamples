@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:FoodOrders.Model"
         xmlns:modeldata="clr-namespace:FoodOrders.Model.Data;assembly=FoodOrders.Model.Data"
+        xmlns:views="clr-namespace:FoodOrders.Views"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
-        <model:MainViewModel/>
+        <model:MainContext/>
     </Window.DataContext>
 
     <Window.Resources>
 
-        <CollectionViewSource x:Key="ordersViewSource" Source="{Binding OrdersViewModel.Items}">
+        <CollectionViewSource x:Key="ordersViewSource" Source="{Binding OrdersContext.Items}">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="OrderDate" Direction="Descending"/>
             </CollectionViewSource.SortDescriptions>
@@ -29,22 +30,6 @@
         </CollectionViewSource>
 
         <CollectionViewSource x:Key="paymentLinesViewSource" Source="{Binding PaymentLines, Source={StaticResource ordersViewSource}}"/>
-
-        <CollectionViewSource x:Key="employeesViewSource" Source="{Binding EmployeesViewModel.Items}">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="DateCreated" Direction="Descending"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-
-        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="0,0,3,0"/>
-        </Style>
-
-        <Style TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        </Style>
 
     </Window.Resources>
 
@@ -69,11 +54,11 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal" DataContext="{Binding OrdersViewModel}">
-                            <Button Content="New" Command="{Binding NewDataCommand}"/>
+                        <StackPanel Orientation="Horizontal" DataContext="{Binding OrdersContext}">
+                            <Button Content="New" Command="{Binding CreateDataCommand}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1" DataContext="{Binding OrdersViewModel.SelectedItem}">
+                        <StackPanel Grid.Row="1" DataContext="{Binding OrdersContext.SelectedItem}">
                             <TextBlock Text="{Binding OrderDate}"/>
                             <TextBlock DataContext="{Binding Employee}">
                                 <TextBlock.Text>
@@ -169,11 +154,11 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Orientation="Horizontal">
-                            <Button DataContext="{Binding OrdersViewModel}" Content="Fetch" Command="{Binding FetchDataCommand}"/>
+                            <Button DataContext="{Binding OrdersContext}" Content="Fetch" Command="{Binding FetchDataCommand}"/>
                             <Button Content="Generate" Command="{Binding GenerateDataCommand}"/>
                         </StackPanel>
 
-                        <ListBox Grid.Row="1" Margin="0,5,0,0" ItemsSource="{Binding Source={StaticResource ordersViewSource}}" SelectedItem="{Binding OrdersViewModel.SelectedItem, Mode=TwoWay}">
+                        <ListBox Grid.Row="1" Margin="0,5,0,0" ItemsSource="{Binding Source={StaticResource ordersViewSource}}" SelectedItem="{Binding OrdersContext.SelectedItem, Mode=TwoWay}">
                             <d:ListBox.SelectedIndex>1</d:ListBox.SelectedIndex>
                             <d:ListBox.ItemsSource>
                                 <x:Array Type="{x:Type modeldata:Order}">
@@ -219,33 +204,14 @@
 
             <TabItem Header="Products">
 
+                <views:ProvidersView/>
+
             </TabItem>
 
             <TabItem Header="Employees">
 
-                <Grid DataContext="{Binding EmployeesViewModel}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                <views:EmployeesView/>
 
-                    <StackPanel>
-                        <Button Content="Fetch"  Command="{Binding FetchDataCommand}"/>
-                    </StackPanel>
-
-                    <ListBox Grid.Row="1" ItemsSource="{Binding Source={StaticResource employeesViewSource}}">
-
-                            <d:ListBox.ItemsSource>
-                                <x:Array Type="modeldata:Employee">
-                                    <modeldata:Employee FirstName="John" LastName="May" Nickname="JOMI"/>
-                                    <modeldata:Employee FirstName="Melissa" LastName="Omman" Nickname="Mom"/>
-                                </x:Array>
-                            </d:ListBox.ItemsSource>
-                            
-                        </ListBox>
-                    
-                </Grid>
-                
             </TabItem>
 
             <TabItem Header="Settings">

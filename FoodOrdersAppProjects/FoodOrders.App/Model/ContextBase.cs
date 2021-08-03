@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace FoodOrders.Model
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ContextBase : INotifyPropertyChanged
     {
         protected static object syncRoot = new object();
 
@@ -46,9 +46,9 @@ namespace FoodOrders.Model
         }
     }
 
-    public class ViewModelBase<TData>
-        : ViewModelBase
-        where TData : DataModelObjectBase
+    public class ContextBase<TData>
+        : ContextBase
+        where TData : DataModelObjectBase, new()
     {
         private TData data;
 

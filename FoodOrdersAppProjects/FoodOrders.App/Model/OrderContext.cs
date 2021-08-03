@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FoodOrders.Model
 {
-    public class OrderViewModel : ViewModelBase<Order>
+    public class OrderContext : ContextBase<Order>
     {
     }
 }

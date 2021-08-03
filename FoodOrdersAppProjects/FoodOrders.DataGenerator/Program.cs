@@ -8,20 +8,19 @@ namespace FoodOrders.DataGenerator
 {
     class Program
     {
-
-        private static FoodOrdersContext GetDbContext()
+        private static FoodOrdersDataContext GetDbContext()
         {
-            return FoodOrdersContext.GetFoodOrdersContext();
+            return FoodOrdersDataContext.GetFoodOrdersContext();
         }
 
         static void Main(string[] args)
         {
-            using FoodOrdersContext context = GetDbContext();
+            using FoodOrdersDataContext context = GetDbContext();
             RemoveAllData(context);
             CreateData(context);
         }
 
-        private static void RemoveAllData(FoodOrdersContext context)
+        private static void RemoveAllData(FoodOrdersDataContext context)
         {
             RemoveAllData(context, context.Orders.SelectMany(o => o.OrderLines).AsQueryable());
             RemoveAllData(context, context.Orders.SelectMany(o => o.PaymentLines).AsQueryable());
@@ -30,7 +29,7 @@ namespace FoodOrders.DataGenerator
             RemoveAllData(context, context.Employees);
         }
 
-        static void RemoveAllData<T>(FoodOrdersContext context, IQueryable<T> data)
+        static void RemoveAllData<T>(FoodOrdersDataContext context, IQueryable<T> data)
             where T : class
         {
             data.Load();
@@ -56,7 +55,7 @@ namespace FoodOrders.DataGenerator
             return Random.Next(5, 30);
         }
 
-        private static void CreateData(FoodOrdersContext context)
+        private static void CreateData(FoodOrdersDataContext context)
         {
             CreateData(context, context.Employees, 20);
             CreateData(context, context.Providers, 50);
@@ -95,7 +94,7 @@ namespace FoodOrders.DataGenerator
             }
         }
 
-        static void CreateData(FoodOrdersContext context, DbSet<Employee> data, int count)
+        static void CreateData(FoodOrdersDataContext context, DbSet<Employee> data, int count)
         {
             using IEnumerator<DateTime> dates = GetRandomDates(DateTime.Now, count).OrderBy(o => o).GetEnumerator();
             Employee employee;
@@ -110,7 +109,7 @@ namespace FoodOrders.DataGenerator
             data.Load();
         }
 
-        static void CreateData(FoodOrdersContext context, DbSet<Provider> data, int count)
+        static void CreateData(FoodOrdersDataContext context, DbSet<Provider> data, int count)
         {
             Provider provider;
             for (int i = 1; i <= count; i++)
@@ -123,7 +122,7 @@ namespace FoodOrders.DataGenerator
             data.Load();
         }
 
-        static void CreateData(FoodOrdersContext context, DbSet<Order> data, int count)
+        static void CreateData(FoodOrdersDataContext context, DbSet<Order> data, int count)
         {
             using (IEnumerator<DateTime> dates = GetRandomDates(DateTime.Now, count).OrderBy(o => o).GetEnumerator())
             {
@@ -156,8 +155,7 @@ namespace FoodOrders.DataGenerator
         {
             return new Employee
             {
-                Id = Guid.NewGuid(),
-                DateCreated = dateCreated,
+                DateCreated = dateCreated.ToUniversalTime(),
                 FirstName = firstName,
                 LastName = lastName,
                 Nickname = nickname
@@ -168,7 +166,6 @@ namespace FoodOrders.DataGenerator
         {
             Provider result = new Provider
             {
-                Id = Guid.NewGuid(),
                 Name = $"Provider{number}",
             };
 
@@ -195,7 +192,6 @@ namespace FoodOrders.DataGenerator
         {
             Product result = new Product
             {
-                Id = Guid.NewGuid(),
                 Provider = provider,
                 Name = $"Product{number}",
             };
@@ -209,7 +205,6 @@ namespace FoodOrders.DataGenerator
         {
             OrderLine result = new OrderLine
             {
-                Id = Guid.NewGuid(),
                 Order = order,
                 Product = product,
                 LineNumber = lineNumber,
@@ -224,7 +219,6 @@ namespace FoodOrders.DataGenerator
         {
             PaymentLine result = new PaymentLine
             {
-                Id = Guid.NewGuid(),
                 Order = order,
                 PaymentType = paymentType,
                 Amount = amount
@@ -233,12 +227,11 @@ namespace FoodOrders.DataGenerator
             return result;
         }
 
-        private static Order CreateOrder(FoodOrdersContext context, DateTime orderDate, int orderNumber, Employee employee)
+        private static Order CreateOrder(FoodOrdersDataContext context, DateTime orderDate, int orderNumber, Employee employee)
         {
             Order result = new Order
             {
-                Id = Guid.NewGuid(),
-                OrderDate = orderDate,
+                OrderDate = orderDate.ToUniversalTime(),
                 OrderNumber = orderNumber,
                 Employee = employee,
             };
